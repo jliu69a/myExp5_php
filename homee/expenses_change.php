@@ -18,9 +18,9 @@ if ($_POST) {
   //-- $id >= 0, $isEdit == 0 : delete
   //-- $id >= 0, $isEdit == 1 : update
   
-  $insertSql = "INSERT INTO `MyExp_Data_Home`(`date`, `time`, `vendor_id`, `payment_id`, `amount`, `note`, `is_active`) VALUES ('$expDate', '$expTime', $vendorId, $paymentId, '$amount', '$note', '1');";
+  $insertSql = "INSERT INTO `MyExp_Data_Home`(`date`, `time`, `vendor_id`, `payment_id`, `amount`, `note`, `is_active`, `update_date`) VALUES ('$expDate', '$expTime', $vendorId, $paymentId, '$amount', '$note', '1', now());";
 
-  $updateSql = "UPDATE `MyExp_Data_Home` SET `date`='$expDate', `time`='$expTime', `vendor_id`=$vendorId, `payment_id`=$paymentId, `amount`='$amount', `note`='$note' WHERE `id` = $id and `is_active` = '1';";
+  $updateSql = "UPDATE `MyExp_Data_Home` SET `date`='$expDate', `time`='$expTime', `vendor_id`=$vendorId, `payment_id`=$paymentId, `amount`='$amount', `note`='$note', `update_date`=now() WHERE `id` = $id and `is_active` = '1';";
 
   $deleteSql = "DELETE FROM `MyExp_Data_Home` WHERE `id` = $id and `is_active` = '1';";
   
