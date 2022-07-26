@@ -59,8 +59,22 @@ if ($_POST) {
         }
     }
     
+    $currentYear = date('Y');
+    $sql4 = "SELECT a.vendor_id AS 'id', b.vendor AS 'vendor', COUNT(a.vendor_id) AS 'total' FROM MyExp_Data_Home a, MyExp_Vendors_Home b WHERE a.vendor_id = b.id AND date LIKE '$currentYear%' GROUP BY `vendor_id` ORDER BY `total` DESC LIMIT 10;";
+    $resultArray4 = array();
+    
+    if ($result = mysqli_query($con, $sql4)) {
+        $tempArray = array();
+        $resultArray = array();
+        
+        while($row = $result->fetch_object()) {
+            $tempArray = $row;
+            array_push($resultArray4, $tempArray);
+        }
+    }
+    
     header('Content-Type: application/json');
-    $data = array(array('payments' => $resultArray1), array('vendors' => $resultArray2));
+    $data = array(array('payments' => $resultArray1), array('vendors' => $resultArray2), array('top10' => $resultArray4));
     echo json_encode($data);
 }
 else {
